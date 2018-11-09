@@ -1,10 +1,11 @@
 class LampsController < ApplicationController
-  before_action :set_lamp, only: [:show, :update, :destroy, :toggle]
-  skip_before_action :verify_authenticity_token, only: [:toggle]
+  before_action :set_lamp, only: [:show, :update, :destroy, :toggle, :on, :off]
+  skip_before_action :verify_authenticity_token, only: [:toggle, :on, :off]
 
   def index
+    CoAP::Client.new.get_by_uri('coap://192.168.0.23/light')
     @lamps = Lamp.all
-    render json: @lamps
+    render json: @lamps      
   end
 
   def show
@@ -34,6 +35,12 @@ class LampsController < ApplicationController
   end
 
   def toggle
+    if @lamp.status == false
+      CoAP::Client.new.put_by_uri('coap://192.168.0.23/light', '1')
+    else
+      CoAP::Client.new.put_by_uri('coap://192.168.0.23/light', '0')
+    end
+
     @lamp.toggle
     render json: @lamp, status: 200
   end
