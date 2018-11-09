@@ -38,9 +38,10 @@ uses the following gems:
 - [Cbor](https://github.com/cabo/cbor-ruby)
 
 ## Utilization
-After cloning the repository run `bundle install` to install missing gems.
+- After cloning the repository run `bundle install` to install missing gems.
+- Open LampController and map the ip address to the address of the CoAP server from https://github.com/felipe-kosouski/arduino-microcoap-light
 
-Create some Lamps via `rails c` console.
+- Create some Lamps via `rails c` console.
 
 Start the server with `rails s`. The application will be running on
 `coap://[::1]:3000/`
